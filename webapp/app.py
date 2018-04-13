@@ -10,7 +10,7 @@ from flask_marshmallow import Marshmallow
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-if os.environ.get('APP_ENV') == 'test':
+if os.environ.get('APP_ENV') == 'prod':
     POSTGRES = {
         'user': 'xhsyearlunhtec',
         'pw': '4b8a9a674ec67c2f43028c78ccb2c7f874f6ac8bfd41ad0f43d37d274d6ad31e',
@@ -18,7 +18,7 @@ if os.environ.get('APP_ENV') == 'test':
         'host': 'ec2-54-225-96-191.compute-1.amazonaws.com',
         'port': '5432',
     }
-elif os.environ.get('APP_ENV') == 'prod':
+elif os.environ.get('APP_ENV') == 'test':
     POSTGRES = {
         'user': 'postgres',
         'pw': 'temp123321',
@@ -40,7 +40,7 @@ ma = Marshmallow(app)
 class Student(db.Model):
     id = db.Column('id', db.Integer, primary_key = True)
     name = db.Column(db.String(100))
-    city = db.Column(db.String(50))  
+    city = db.Column(db.String(50))
     addr = db.Column(db.String(200))
     pin = db.Column(db.String(10))
 
