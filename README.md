@@ -1,2 +1,2 @@
 # workshop-fri
-App for workshop on FRI
+App for workshop on FRI made in Python
