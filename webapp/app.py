@@ -10,13 +10,25 @@ from flask_marshmallow import Marshmallow
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-POSTGRES = {
-    'user': 'postgres',
-    'pw': 'temp123321',
-    'db': 'students',
-    'host': 'localhost',
-    'port': '5432',
-}
+if os.environ.get('APP_ENV') == 'test':
+    POSTGRES = {
+        'user': 'xhsyearlunhtec',
+        'pw': '4b8a9a674ec67c2f43028c78ccb2c7f874f6ac8bfd41ad0f43d37d274d6ad31e',
+        'db': 'd3trkhn3atsq5g',
+        'host': 'ec2-54-225-96-191.compute-1.amazonaws.com',
+        'port': '5432',
+    }
+elif os.environ.get('APP_ENV') == 'prod':
+    POSTGRES = {
+        'user': 'postgres',
+        'pw': 'temp123321',
+        'db': 'students',
+        'host': 'localhost',
+        'port': '5432',
+    }
+else:
+    print('Problem getting environment. Please set APP_ENV to "test" or "prod".')
+    sys.exit()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

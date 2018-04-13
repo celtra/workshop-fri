@@ -4,3 +4,6 @@ Jinja2
 Werkzeug
 distribute
 wsgiref
+flask_sqlalchemy
+flask_marshmallow
+marshmallow-sqlalchemy
