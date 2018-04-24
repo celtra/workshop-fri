@@ -7,4 +7,5 @@ wsgiref
 flask_sqlalchemy
 flask_marshmallow
 marshmallow-sqlalchemy
-psycopg2-binary
+#psycopg2
+#psycopg2-binary

@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.attributes import flag_modified
 from flask_marshmallow import Marshmallow
+from pprint import pprint
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -44,7 +45,7 @@ class Student(db.Model):
     addr = db.Column(db.String(200))
     pin = db.Column(db.String(10))
 
-    def __init__(self, name, city, addr,pin):
+    def __init__(self, name, city, addr, pin):
         self.name = name
         self.city = city
         self.addr = addr
@@ -71,6 +72,14 @@ def empty_view():
 
 @app.route("/student/", methods=["POST"])
 def add_student():
+    """
+    {
+        "name": "Alen",
+        "city": "Ljubljana",
+        "addr": "Dalmatinova 1",
+        "pin": 1000
+    }
+    """
     name = request.json['name']
     city = request.json['city']
     addr = request.json['addr']
@@ -86,12 +95,12 @@ def add_student():
 
 @app.route("/student/", methods=["GET"])
 def get_students():
-    try:
-        students = Student.query.all()
-        result = students_schema.dump(students)
-        return jsonify(result.data)
-    except Exception as e:
-        return jsonify({'result': 'error'}), 500
+    #try:
+    students = Student.query.all()
+    result = students_schema.dump(students)
+    return jsonify(result.data)
+    #except Exception as e:
+    #    return jsonify({'result': 'error'}), 500
 
 
 @app.route("/student/<int:id>", methods=["PUT"])
