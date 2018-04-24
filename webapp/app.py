@@ -91,27 +91,21 @@ def add_student():
 
 @app.route("/student/", methods=["GET"])
 def get_students():
-    #try:
     students = Student.query.all()
     result = students_schema.dump(students)
     return jsonify(result.data)
-    #except Exception as e:
-    #    return jsonify({'result': 'error'}), 500
 
 
 @app.route("/student/<int:id>", methods=["PUT"])
 def student_update(id):
-    try:
-        student_id = Student.query.get(id)
-        for key in request.json:
-            student_id.update(key, request.json[key])
-            flag_modified(student_id, key)
+    student_id = Student.query.get(id)
+    for key in request.json:
+        student_id.update(key, request.json[key])
+        flag_modified(student_id, key)
 
-        db.session.merge(student_id)
-        db.session.commit()
-        return jsonify({'result': 'success'}), 201
-    except Exception as e:
-        return jsonify({'result': 'error'}), 500
+    db.session.merge(student_id)
+    db.session.commit()
+    return jsonify({'result': 'success'}), 201
 
 
 if __name__ == '__main__':
