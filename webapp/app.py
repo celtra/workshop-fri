@@ -19,9 +19,9 @@ if os.environ.get('DATABASE_URL'):
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 elif os.environ.get('APP_ENV') == 'test':
     POSTGRES = {
-        'user': 'testuser',
-        'pw': 'testuser',
-        'db': 'students',
+        'user': 'postgres',
+        'pw': 'temp123321',
+        'db': 'postgres',
         'host': 'localhost',
         'port': '5432',
     }
