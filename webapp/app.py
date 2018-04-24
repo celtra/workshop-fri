@@ -11,14 +11,12 @@ from pprint import pprint
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-if os.environ.get('APP_ENV') == 'prod':
-    POSTGRES = {
-        'user': 'xhsyearlunhtec',
-        'pw': '4b8a9a674ec67c2f43028c78ccb2c7f874f6ac8bfd41ad0f43d37d274d6ad31e',
-        'db': 'd3trkhn3atsq5g',
-        'host': 'ec2-54-225-96-191.compute-1.amazonaws.com',
-        'port': '5432',
-    }
+app = Flask(__name__)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Get DATABASE_URL from the env, or fallback to above config.
+if os.environ.get('DATABASE_URL'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 elif os.environ.get('APP_ENV') == 'test':
     POSTGRES = {
         'user': 'testuser',
@@ -27,13 +25,11 @@ elif os.environ.get('APP_ENV') == 'test':
         'host': 'localhost',
         'port': '5432',
     }
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 else:
     print('Problem getting environment. Please set APP_ENV to "test" or "prod".')
     sys.exit()
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
