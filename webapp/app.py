@@ -21,8 +21,8 @@ if os.environ.get('APP_ENV') == 'prod':
     }
 elif os.environ.get('APP_ENV') == 'test':
     POSTGRES = {
-        'user': 'postgres',
-        'pw': 'temp123321',
+        'user': 'testuser',
+        'pw': 'testuser',
         'db': 'students',
         'host': 'localhost',
         'port': '5432',
