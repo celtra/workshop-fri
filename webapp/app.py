@@ -22,7 +22,7 @@ elif os.environ.get('APP_ENV') == 'test':
         'user': 'postgres',
         'pw': 'temp123321',
         'db': 'postgres',
-        'host': 'localhost',
+        'host': 'db',
         'port': '5432',
     }
 
