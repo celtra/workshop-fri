@@ -8,3 +8,4 @@ flask_sqlalchemy
 flask_marshmallow
 marshmallow-sqlalchemy
 psycopg2
+newrelic
